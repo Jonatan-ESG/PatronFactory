@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace PatronFactory.Clases
 {
-    internal class Camion : Transporte
+    internal class Barco : Transporte
     {
-        string Placa;
-        public Camion(string placa) { 
-            this.Placa = placa;
+        decimal DWT;
+        public Barco(decimal dwt) {
+            this.DWT = dwt;
         }
-
         public bool realizarEntrega(Entrega entrega) {
-            //Lógica de entrega
+            //Realizar entrega
             return true;
         }
     }

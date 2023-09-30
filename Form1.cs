@@ -4,11 +4,13 @@ namespace PatronFactory
 {
     public partial class Form1 : Form
     {
-        Logistica logistica;
+        Logistica logisticaTerrestre;
+        Logistica logisticaMaritima;
         public Form1()
         {
             InitializeComponent();
-            this.logistica = new Logistica();
+            this.logisticaTerrestre = new LogisticaTerrestre();
+            this.logisticaMaritima = new LogisiticaMaritima();
         }
 
         private void botonEnvioTerrestre_Click(object sender, EventArgs e)
@@ -25,7 +27,7 @@ namespace PatronFactory
 
             Entrega entregaDesdeInterfaz = new Entrega(nombreCliente, ubicacionEntrega, codigoProducto);
 
-            this.logistica.planificarEntrega(entregaDesdeInterfaz);
+            this.logisticaTerrestre.planificarEntrega(entregaDesdeInterfaz);
 
             MessageBox.Show($"Se está coordinando su envío");
 
@@ -43,17 +45,41 @@ namespace PatronFactory
 
         private void botonRealizarEntregas_Click(object sender, EventArgs e)
         {
-            string mensaje = this.logistica.realizarEntregas();
+            string mensajeTerrestre = this.logisticaTerrestre.realizarEntregas();
+            string mensajeMaritimo = this.logisticaMaritima.realizarEntregas();
 
             this.actualizarListaEntregasPendientes();
 
-            MessageBox.Show(mensaje);
+            MessageBox.Show($"{mensajeTerrestre}\n{mensajeMaritimo}");
 
         }
 
         private void actualizarListaEntregasPendientes()
         {
-            listaEntregasPendientes.Text = this.logistica.obtenerEntregasPendientes(); ;
+            listaEntregasPendientes.Text = $"{this.logisticaTerrestre.obtenerEntregasPendientes()}\n{this.logisticaMaritima.obtenerEntregasPendientes()}" ;
+        }
+
+        private void botonEnvioMaritimo_Click(object sender, EventArgs e)
+        {
+            string nombreCliente = campoNombreCliente.Text.Trim();
+            string ubicacionEntrega = campoUbicacionEntrega.Text.Trim();
+            string codigoProducto = campoCodigoProducto.Text.Trim();
+
+            if (nombreCliente == "" || ubicacionEntrega == "" || codigoProducto == "")
+            {
+                MessageBox.Show("Todos los campos son requeridos");
+                return;
+            }
+
+            Entrega entregaDesdeInterfaz = new Entrega(nombreCliente, ubicacionEntrega, codigoProducto);
+
+            this.logisticaMaritima.planificarEntrega(entregaDesdeInterfaz);
+
+            MessageBox.Show($"Se está coordinando su envío");
+
+            this.actualizarListaEntregasPendientes();
+
+            this.LimpiarFormulario();
         }
     }
 }

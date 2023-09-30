@@ -38,12 +38,13 @@
             campoCodigoProducto = new TextBox();
             botonRealizarEntregas = new Button();
             listaEntregasPendientes = new Label();
+            botonEnvioMaritimo = new Button();
             SuspendLayout();
             // 
             // botonEnvioTerrestre
             // 
             botonEnvioTerrestre.Image = Properties.Resources.camion;
-            botonEnvioTerrestre.Location = new Point(260, 254);
+            botonEnvioTerrestre.Location = new Point(123, 243);
             botonEnvioTerrestre.Name = "botonEnvioTerrestre";
             botonEnvioTerrestre.Size = new Size(174, 106);
             botonEnvioTerrestre.TabIndex = 0;
@@ -131,11 +132,24 @@
             listaEntregasPendientes.Size = new Size(0, 20);
             listaEntregasPendientes.TabIndex = 9;
             // 
+            // botonEnvioMaritimo
+            // 
+            botonEnvioMaritimo.Image = Properties.Resources.barco;
+            botonEnvioMaritimo.Location = new Point(374, 243);
+            botonEnvioMaritimo.Name = "botonEnvioMaritimo";
+            botonEnvioMaritimo.Size = new Size(174, 106);
+            botonEnvioMaritimo.TabIndex = 10;
+            botonEnvioMaritimo.Text = "Envío Marítimo";
+            botonEnvioMaritimo.TextAlign = ContentAlignment.BottomCenter;
+            botonEnvioMaritimo.UseVisualStyleBackColor = true;
+            botonEnvioMaritimo.Click += botonEnvioMaritimo_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1045, 399);
+            Controls.Add(botonEnvioMaritimo);
             Controls.Add(listaEntregasPendientes);
             Controls.Add(botonRealizarEntregas);
             Controls.Add(label4);
@@ -164,5 +178,6 @@
         private TextBox campoCodigoProducto;
         private Button botonRealizarEntregas;
         private Label listaEntregasPendientes;
+        private Button botonEnvioMaritimo;
     }
 }

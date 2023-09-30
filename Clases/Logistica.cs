@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PatronFactory.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace PatronFactory.Clases
 {
-    internal class Logistica
+    abstract class Logistica
     {
-        DateTime FechaActual;
-        List<Entrega> entregasPendientes = new List<Entrega>();
-        Camion camionRepartidor = new Camion("C 768 GFT");
+        public List<Entrega> entregasPendientes = new List<Entrega>();
+        protected Transporte transporteRepartidor;
 
-        public Logistica() {
-            this.FechaActual = DateTime.Now;
-        }
+        protected abstract Transporte crearTransporte();
 
         public void planificarEntrega(Entrega entrega)
         {
@@ -31,7 +29,7 @@ namespace PatronFactory.Clases
 
             foreach (Entrega entrega in this.entregasPendientes.ToList())
             {
-                bool estadoEntrega = this.camionRepartidor.realizarEntrega(entrega);
+                bool estadoEntrega = this.transporteRepartidor.realizarEntrega(entrega);
 
                 if (!estadoEntrega)
                 {
@@ -41,7 +39,7 @@ namespace PatronFactory.Clases
                 }
 
                 this.entregasPendientes.Remove(entrega);
-                mensajeEntregas += $"Se entregó correctamente en la dirección {entrega.UbicacionEntrega}. ";
+                mensajeEntregas += $"Se entregó correctamente en la dirección {entrega.UbicacionEntrega}. Desde: {this.transporteRepartidor.GetType().Name}";
 
             }
             return mensajeEntregas;
